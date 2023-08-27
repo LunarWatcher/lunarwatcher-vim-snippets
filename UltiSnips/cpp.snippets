@@ -26,3 +26,36 @@ ${VISUAL}$0
 }${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
 
 endsnippet
+
+# This form of detection is excessive in 99/100 cases, but it's a snippet, so no one has to
+# type it, so it's irrelevant
+#
+# There's basically only three different scenarios:
+# 1. Something is windows-only
+# 2. Something is everything but windows (because Windows is a piece of shit)
+# 3. Something is OS-specific, and varies across the three major OSes
+snippet ifwin "If windows"
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+	$1
+#endif
+endsnippet
+
+snippet ifnwin "If not windows"
+#if !defined(WIN32) || !defined(_WIN32) || !defined(__WIN32__) || !defined(__NT__)
+	$1
+#endif
+endsnippet
+
+# There's better ways to deal with this, but in the _vast_ majority of my projects, I exclusively do checks for
+# whether _WIN32 is defined or undefined. Higher resolution checks, for me, don't go deeper than checking windows,
+# apple, and everything else (which is usually guarantees linux for my applications). Could probably add variants of
+# these later
+snippet ossel "OS selector (desktop only); pragmas for Windows, Linux, and MacOS"
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+	$1
+#elif defined(__APPLE__)
+	$2
+#elif defined(__linux__)
+	$3
+#endif
+endsnippet
