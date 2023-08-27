@@ -49,7 +49,12 @@ endsnippet
 # There's better ways to deal with this, but in the _vast_ majority of my projects, I exclusively do checks for
 # whether _WIN32 is defined or undefined. Higher resolution checks, for me, don't go deeper than checking windows,
 # apple, and everything else (which is usually guarantees linux for my applications). Could probably add variants of
-# these later
+# these later.
+# But I don't work with super low level stuff most of the time. If the UNIX API doesn't support it, that's when I use
+# this one, but that's exceedingly rare. Haven't used it once in stc (AFAIK), and that's a compat layer.
+# It has an if windows and else for all other OSes that run basically the same standard. Apple has some weird shit
+# for some things though (and I guess from the perspective of a general UNIX user, so does Linux, but we'll cross
+# that bridge when I get a non-linux UNIX user on a repo)
 snippet ossel "OS selector (desktop only); pragmas for Windows, Linux, and MacOS"
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
 	$1
