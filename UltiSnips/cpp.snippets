@@ -6,8 +6,15 @@ snippet ih "Import header"
 #include "$1"
 endsnippet
 
+# Namespaces {{{
 snippet ns "Base namespace derived from first path component"
 namespace ${1:`!v expand('%')->split("/")->get(1, "")`} {
+${VISUAL}$0
+}${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
+endsnippet
+
+snippet ns2 "Base namespace derived from second path component"
+namespace ${1:`!v expand('%')->split("/")->get(2, "")`} {
 ${VISUAL}$0
 }${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
 endsnippet
@@ -20,13 +27,36 @@ endsnippet
 
 snippet nspf "Namespace with path and filename"
 namespace ${1:`!v expand('%')->split("/")->get(1, "")`} {
-namespace${2/.+/ /m}${2:`!p snip.rv = snip.basename or "name"`} {
+namespace ${2/.+/ /m}${2:`!p snip.rv = snip.basename or "name"`} {
 ${VISUAL}$0
 }${2/.+/ \/* /m}$2${2/.+/ *\/ /m}
 }${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
-
 endsnippet
 
+snippet nspf2 "Namespace with the second path component, and the filename"
+namespace ${1:`!v expand('%')->split("/")->get(2, "")`} {
+namespace ${2/.+/ /m}${2:`!p snip.rv = snip.basename or "name"`} {
+${VISUAL}$0
+}${2/.+/ \/* /m}$2${2/.+/ *\/ /m}
+}${1/.+/ \/* /m}$1${1/.+/ *\/ /m}
+endsnippet
+
+# Compact C++17 declarations {{{
+snippet nspfc "Same as nspf, but using C++17-compatible 'namespace a::b {}' declarations"
+namespace ${1:`!v expand('%')->split("/")->get(1, "")`}::${2:`!p snip.rv = snip.basename or "name"`} {
+${VISUAL}$0
+}${1/.+/ \/* /m}$1::$2${2/.+/ *\/ /m}
+endsnippet
+
+snippet nspf2c "Same as nspf2, but using C++17-compatible 'namespace a::b {}' declarations"
+namespace ${1:`!v expand('%')->split("/")->get(2, "")`}::${2:`!p snip.rv = snip.basename or "name"`} {
+${VISUAL}$0
+}${1/.+/ \/* /m}$1::$2${2/.+/ *\/ /m}
+endsnippet
+# }}}
+# }}}
+
+# OS selection macros {{{
 # This form of detection is excessive in 99/100 cases, but it's a snippet, so no one has to
 # type it, so it's irrelevant
 #
@@ -64,3 +94,4 @@ snippet ossel "OS selector (desktop only); pragmas for Windows, Linux, and MacOS
 	$3
 #endif
 endsnippet
+# }}}
