@@ -117,7 +117,7 @@ snippet document "document template" w
 \usepackage{csquotes}
 \usepackage[${3:english}]{babel}
 \usepackage[style=apa,backend=biber]{biblatex}
-\addbibresource({$4:`!v expand('%:t:r')`})
+\addbibresource{${4:`!v expand('%:t:r')`}}
 % }}}
 \begin{document}
 
@@ -146,4 +146,9 @@ snippet code "lstlisting abbreviation" w
 \begin{lstlisting}
     $1
 \end{lstlisting}
+$2
+endsnippet
+
+snippet include "Include another latex file" w
+\input{$1}
 endsnippet
