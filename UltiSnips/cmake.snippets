@@ -1,0 +1,19 @@
+priority 696969
+
+snippet fcd "FetchContent_Declare"
+FetchContent_Declare($1
+	GIT_REPOSITORY $2
+	GIT_TAG $3
+)$4
+endsnippet
+
+snippet cppf "Change CMAKE_CXX_FLAGS"
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} $1")$2
+endsnippet
+snippet cppfd "Change CMAKE_CXX_FLAGS_DEBUG"
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} $1")$2
+endsnippet
+snippet cppfr "Change CMAKE_CXX_FLAGS_RELEASE"
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} $1")$2
+endsnippet
+
