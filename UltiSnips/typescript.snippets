@@ -5,3 +5,9 @@ snippet la "Zero-arg standard lambda" w
 	$2
 }
 endsnippet
+snippet bullshitdict "Fucking typescript bullshit dict syntax, because doing things normally is too complicated for Microsoft (officially called 'index signatures', but I prefer my variant)"
+interface $1 {
+	[default_key: ${2:string}]: ${3:value_type};
+	$4
+}
+endsnippet

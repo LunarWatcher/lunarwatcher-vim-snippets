@@ -49,3 +49,25 @@ $2
 $3
 
 endsnippet
+snippet testall "CONTRIBUTING.md test policy: as much as possible"
+As much of the code should be tested as possible, within reason.
+
+The primary goal of tests is to ensure there's a support framework that prevents backsliding in code quality. With enough tests, you don't need to worry as much about breaking something unrelated to what you were working on. 100% coverage is a pointless metric, but coverage tools can be useful to tell what critical paths aren't being tested. In real code, many paths may legitimately be unreachable without doing an awful lot of fucking around, particularly in exception handlers. Doing elaborate bullshit to test every possible path in the code, including trivial paths, is a waste of time and effort.
+
+In practice, this means:
+
+* If you're writing new functionality, write tests for the core parts of it
+* If you're fixing a bug that was reported, write regression tests
+* If you're working with edge-cases, test them
+
+Writing tests isn't always feasible, but it should be attempted whereever possible. However, if any tests break, they must be fixed. Removal should only be done if the corresponding functionality is removed, and not as a way to bypass the test failures to maybe perhaps fix later.
+endsnippet
+snippet testcpp "CONTRIBUTING.md test for C++ (standard convention)"
+```bash
+cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+# Alternatively cmake --build . -j <threads>
+make -j $(nproc)
+```
+endsnippet
+
+# vim:wrap:spell:spelllang=en_gb

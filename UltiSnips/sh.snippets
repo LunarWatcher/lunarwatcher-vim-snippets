@@ -1,0 +1,34 @@
+priority 6969
+# TODO: This has escaping issues, but ${PSQL_PASSWORD@Q} will likely break the password because erroneous \" 
+snippet psqlsetup "Sets up PSQL"
+#!/usr/bin/bash
+
+# For non-interactive use, check for the PSQL_PASSWORD env variable before prompting
+if [[ "$PSQL_PASSWORD" == "" ]];
+then
+	read -s -p "Postgres password for [postgres] user ${1:username}: " PSQL_PASSWORD
+	echo
+fi
+
+# These can error out; error means stuff already exists, and is probably a consequence of the installer being re-run
+set +e
+sudo -u postgres psql -c "CREATE USER jade WITH ENCRYPTED PASSWORD '$PSQL_PASSWORD';"
+sudo -u postgres psql -c "CREATE DATABASE $1;"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $1 TO $1;"
+set -e
+
+endsnippet
+snippet psqldev "PSQL dev setup"
+#!/usr/bin/bash
+
+# SNIPPET USER NOTE: this is meant to be used in a script for developers that builds on the psqlsetup snippet. 
+# You should be using it as well as this one. This script contains none of the heavy lifting on database generation
+sudo -u postgres psql -c "CREATE DATABASE ${1:username}test;"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $1test TO $1;"
+endsnippet
+snippet psqlpurge "PSQL purge utility script"
+#!/usr/bin/bash
+
+sudo -u postgres psql -d ${1:username} -c "DROP SCHEMA $1 CASCADE;"
+sudo -u postgres psql -d $1test -c "DROP SCHEMA $1 CASCADE;"
+endsnippet
