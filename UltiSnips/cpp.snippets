@@ -101,3 +101,18 @@ snippet la "Zero-arg standard lambda" w
 	$3
 }
 endsnippet
+
+snippet catch2
+#include <catch2/catch_test_macros.hpp>
+endsnippet
+
+snippet test
+TEST_CASE("$1", "$2") {
+	$3
+}
+endsnippet
+snippet section
+SECTION("$1") {
+	$2
+}
+endsnippet
