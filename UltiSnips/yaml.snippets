@@ -25,7 +25,7 @@ ${1:build-ubuntu}:
 					variant: Release
 					image: ubuntu:rolling
 	runs-on: ${{ matrix.os-config.os }}
-	container: matrix.os-config.image
+	container: ${{ matrix.os-config.image }}
 	steps:
 		- name: Install deps
 			run: |
